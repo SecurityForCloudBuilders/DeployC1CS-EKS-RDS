@@ -4,6 +4,7 @@ Passo a passo de como realizar o deploy o C1CS em EKS com um banco de dados Exte
 # O que iremos precisar?
 
 * Uma conta no Cloud One (não tem custo por 30 dias) - http://cloudone.trendmicro.com/
+* Licença para o Smart Check https://www.trendmicro.com/product_trials/download/index/us/168
 * Uma conta na AWS - https://portal.aws.amazon.com/billing/signup
 * AWS CLI - https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 * kubectl - https://kubernetes.io/docs/tasks/tools/install-kubectl/
@@ -56,8 +57,24 @@ A criação do cluster pode levar alguns minutos.
 
 # Instalando o Smart Check com banco Externo
 
+Adicione as seguintes informaçções no overrides.yaml, inserindo sua própria senha para sua instância RDS e também o endpoint como o host.
 
+```
+db:
+    user: smartcheck
+    password: my_passwrd
+    host: myrds.nomealeatorio.us-east-1.rds.amazonaws.com
+    port: 5432
+    tls:
+        ca:
+            valueFrom:
+                configMapKeyRef:
+                    name: dssc-db-trust
+                    key: ca
 
+activationCode: XX-XXXX-XXXXV-XXXXX-XXXXX-XXXXX-XXXXX
 
+auth:
 
-
+    secretSeed: trendmicro
+```
