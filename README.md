@@ -55,6 +55,20 @@ A criação do cluster pode levar alguns minutos.
 
 # Configurando o RDS
 
+Efetue login na console da AWS, no menu de busca procure por RDS. Modifique os sequintes parâmetros:
+
+* Create database > PostresSQL (selecione a versão 11.10-R1)
+* Templates > Dev/Test
+* Settings (Defina uma nome e coloque as credenciais)
+* DB instance class > Burstable classes (db.t3.small)
+* Connectivity (Selecione as VPC, Subnet e Security Group do cluster EKS)
+* Clique em Create Database
+
+
+# Gerando o certificado para comunicação segura com o banco
+
+Por padrão o RDS já tem ssl habilitado, iremos ajustar o certificado para que o Smart Check consiga se comunicar com o RDS.
+
 # Instalando o Smart Check com banco Externo
 
 Adicione as seguintes informaçções no overrides.yaml, inserindo sua própria senha para sua instância RDS e também o endpoint como o host.
