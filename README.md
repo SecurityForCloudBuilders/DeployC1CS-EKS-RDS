@@ -77,7 +77,9 @@ Se tiver conectividade e o usuário estiver correto, você terá sucesso.
 
 # Instalando o Smart Check com banco Externo
 
-Antes de instalar precisamos configurar o certificado SSL do RDS, verifique a sua região no link https://s3.amazonaws.com/rds-downloads/rds-ca-2019-root.pem
+Antes de instalar precisamos configurar o certificado SSL do RDS, verifique a sua região no link.
+<p>
+https://s3.amazonaws.com/rds-downloads/rds-ca-2019-root.pem
 
 ```
 kubectl create configmap dssc-db-trust --from-file=ca=<certificateName.pem>
