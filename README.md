@@ -66,11 +66,22 @@ Efetue login na console da AWS, no menu de busca procure por RDS. Modifique os s
 
 <img src="RDS.jpg" alt="ADD Azure" width="65%"> </img>
 
-# Gerando o certificado para comunicação segura com o banco
+Após o banco de dados inicializar você pode testar a comunicação utilizando uma instancia EC2 que está na mesma rede do Cluster. O Objetivo do testes é termos certeza que conseguiremos fazer o deploy do Smart Check com um banco externo.
 
-Por padrão o RDS já tem ssl habilitado, iremos ajustar o certificado para que o Smart Check consiga se comunicar com o RDS.
+Acesse a instancia via SSH e execute os comando:
+
+* sudo apt-get install postgresql -y
+* psql postgres -h databasename.cyik5irlxxxx.us-east-1.rds.amazonaws.com -p 5432 -U usuario-banco
+
+Se tiver conectividade e o usuário estiver correto, você terá sucesso.
 
 # Instalando o Smart Check com banco Externo
+
+Antes de instalar precisamos configurar o certificado SSL do RDS, verifique a sua região no link https://s3.amazonaws.com/rds-downloads/rds-ca-2019-root.pem
+
+```
+kubectl create configmap dssc-db-trust --from-file=ca=<certificateName.pem>
+```
 
 Adicione as seguintes informaçções no overrides.yaml, inserindo sua própria senha para sua instância RDS e também o endpoint como o host.
 
@@ -93,3 +104,20 @@ auth:
 
     secretSeed: trendmicro
 ```
+
+Hora da instalação do Smart Check:
+
+```
+helm install --values overrides.yaml deepsecurity-smartcheck https://github.com/deep-security/smartcheck-helm/archive/master.tar.gz
+```
+
+Siga as instruções no terminal para acessar a console do Smart Check.
+Para validar se o Smart Check criou corretamente o banco de dados, efetue um acesso remoto no banco (exemplo acima ) e digite o comando abaixo:
+
+```
+postgres=> \l
+```
+
+Links:
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html
