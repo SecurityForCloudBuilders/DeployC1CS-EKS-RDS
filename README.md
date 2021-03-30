@@ -64,6 +64,7 @@ Efetue login na console da AWS, no menu de busca procure por RDS. Modifique os s
 * Connectivity (Selecione as VPC, Subnet e Security Group do cluster EKS)
 * Clique em Create Database
 
+<img src="RDS.jpg" alt="ADD Azure" width="65%"> </img>
 
 # Gerando o certificado para comunicação segura com o banco
 
