@@ -16,6 +16,7 @@ Passo a passo de como realizar o deploy o C1CS em EKS com um banco de dados Exte
 
 # Criando o Cluster EKS
 
+* Antes de qualquer comando instale os pré-requisitos acima.
 * Efetue login na sua conta AWS utilizando o AWS Config.
 * Tenha em mente o nome da sua chave .pem e altere ou crie uma nova, no exemplo abaixo o nome da minha chave é my_key_name.
 
