@@ -23,6 +23,7 @@ Passo a passo de como realizar o deploy o C1CS em EKS com um banco de dados Exte
 * Crie um arquivo .yml (meuclustereks.yml) com o conteudo abaixo:
 
 ```
+apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
