@@ -12,8 +12,6 @@ Passo a passo de como realizar o deploy o C1CS em EKS com um banco de dados Exte
 * helm - https://docs.aws.amazon.com/eks/latest/userguide/helm.html
 * Docker
 
-# Topologia
-
 # Criando o Cluster EKS
 
 * Antes de qualquer comando instale os pré-requisitos acima.
@@ -31,8 +29,8 @@ metadata:
   region: us-east-1
 
 nodeGroups:
-  - name: ng-1
-    instanceType: t2.medium
+  - name: ng-2
+    instanceType: t2.large
     desiredCapacity: 3
     ssh: # use existing EC2 key
       publicKeyName: my_key_name
@@ -84,7 +82,8 @@ Antes de instalar precisamos configurar o certificado SSL do RDS, verifique a su
 https://s3.amazonaws.com/rds-downloads/rds-ca-2019-root.pem
 
 ```
-kubectl create configmap dssc-db-trust --from-file=ca=<certificateName.pem>
+kubectl create namespace smartcheck
+kubectl create configmap -n smartcheck dssc-db-trust --from-file=ca=rds-ca-2019-root.pem
 ```
 
 Adicione as seguintes informaçções no overrides.yaml, inserindo sua própria senha para sua instância RDS e também o endpoint como o host.
@@ -112,7 +111,7 @@ auth:
 Hora da instalação do Smart Check:
 
 ```
-helm install --values overrides.yaml deepsecurity-smartcheck https://github.com/deep-security/smartcheck-helm/archive/master.tar.gz
+helm install --namespace smartcheck --values overrides.yaml deepsecurity-smartcheck https://github.com/deep-security/smartcheck-helm/archive/master.tar.gz
 ```
 
 Siga as instruções no terminal para acessar a console do Smart Check.
