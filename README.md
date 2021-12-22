@@ -71,7 +71,9 @@ Após o banco de dados inicializar você pode testar a comunicação utilizando 
 Acesse a instancia via SSH e execute os comando:
 
 * sudo apt-get install postgresql -y
-* psql postgres -h databasename.cyik5irlxxxx.us-east-1.rds.amazonaws.com -p 5432 -U usuario-banco
+* sudo apt install postgresql-client-common
+* sudo apt-get install postgresql-client
+* psql postgres -h <databasename.cyik5irlxxxx.us-east-1.rds.amazonaws.com> -p 5432 -U <usuario-banco>
 
 Se tiver conectividade e o usuário estiver correto, você terá sucesso.
 
